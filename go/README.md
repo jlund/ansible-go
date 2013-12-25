@@ -1,12 +1,12 @@
 Go
 ========
 
-Ansible role that installs Go (http://golang.org/). The latest stable release (1.2) that has been compiled for x86 64-bit systems is installed by default.
+Ansible role that installs Go (http://golang.org/). The latest stable release that has been compiled for x86 64-bit Linux systems is installed by default, and different platforms and versions are supported by modifying the role variables.
 
 Role Variables
 --------------
 
-All of these variables are optional and should only be changed if you need to install a different version of Go.
+All of these variables are optional and should only be changed if you need to install a different version of Go (e.g. if you are installing on FreeBSD, or if you need to use an earlier release).
 
 go_tarball: The tarball that you want to install. A list of options can be found on the [Go Downloads page](http://code.google.com/p/go/downloads/list). The default is the official x86 64-bit tarball for the latest stable release.
 
