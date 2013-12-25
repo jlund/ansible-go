@@ -1,0 +1,2 @@
+---
+go_download_location: "http://go.googlecode.com/files/{{ go_tarball }}"

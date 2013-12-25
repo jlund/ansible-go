@@ -1,0 +1,12 @@
+---
+- name: Download the Go tarball
+  get_url: url={{ go_download_location }}
+           dest=/usr/local/src/
+           sha256sum={{ go_tarball_checksum }}
+
+- name: Extract the Go tarball
+  command: tar -C /usr/local -xf /usr/local/src/{{ go_tarball }}
+
+- name: Add the Go bin directory to the PATH environment variable for all users
+  copy: src=go-bin.sh
+        dest=/etc/profile.d
