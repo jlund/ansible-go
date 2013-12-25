@@ -6,6 +6,7 @@
 
 - name: Extract the Go tarball
   command: tar -C /usr/local -xf /usr/local/src/{{ go_tarball }}
+           creates=/usr/local/go/bin/go
 
 - name: Add the Go bin directory to the PATH environment variable for all users
   copy: src=go-bin.sh
