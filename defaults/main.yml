@@ -1,3 +1,3 @@
 ---
-go_tarball: "go1.2.linux-amd64.tar.gz"
-go_tarball_checksum: "1252ca0aa0a96d53c0592fbc4ea9c9ff5c6b588169c92e08d06da9d89d9d91f2"
+go_tarball: "go1.2.1.linux-amd64.tar.gz"
+go_tarball_checksum: "7605f577ff6ac2d608a3a4e829b255ae2ebc8dcf"
