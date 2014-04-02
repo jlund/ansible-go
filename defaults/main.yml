@@ -1,3 +1,4 @@
 ---
 go_tarball: "go1.2.1.linux-amd64.tar.gz"
 go_tarball_checksum: "d6e9623b8cf566599003dac6c402d03a62f48d98158bfcfc3b0c743b51ad4be6"
+go_version_target: "go version go1.2.1 linux/amd64"
