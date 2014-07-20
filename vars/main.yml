@@ -1,2 +1,2 @@
 ---
-go_download_location: "http://go.googlecode.com/files/{{ go_tarball }}"
+go_download_location: "http://golang.org/dl/{{ go_tarball }}"
