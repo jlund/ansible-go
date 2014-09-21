@@ -1,5 +1,6 @@
 ---
 - name: Download the Go tarball
+  sudo: true
   get_url: url={{ go_download_location }}
            dest=/usr/local/src/{{ go_tarball }}
            sha256sum={{ go_tarball_checksum }}
@@ -10,13 +11,16 @@
   register: go_version
 
 - name: Extract the Go tarball if Go is not yet installed or if it is not the desired version
+  sudo: true
   command: tar -C /usr/local -xf /usr/local/src/{{ go_tarball }}
   when: go_version|failed or go_version.stdout != go_version_target
 
 - name: Add the Go bin directory to the PATH environment variable for all users
+  sudo: true
   copy: src=go-bin.sh
         dest=/etc/profile.d
 
 - name: Set GOPATH for all users
+  sudo: true
   copy: src=go-path.sh
         dest=/etc/profile.d
