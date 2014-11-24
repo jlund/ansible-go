@@ -8,6 +8,8 @@ Role Variables
 
 All of these variables are optional and should only be changed if you need to install a different version of Go (e.g. if you are installing on FreeBSD, or if you need to use an earlier release).
 
+go_path: The GOPATH environment variable, where packages will be stored. The go_bin variable should not be overriden, but it is where go binaries will be stored, will be added to PATH.
+
 go_tarball: The tarball that you want to install. A list of options can be found on the [Go Downloads page](http://code.google.com/p/go/downloads/list). The default is the official x86 64-bit Linux tarball for the latest stable release.
 
 go_tarball_checksum: The SHA256 checksum for the tarball that you want to install. This can be calculated using `sha256sum` if necessary. The default is the SHA256 checksum of the official x86 64-bit tarball for the latest stable release.
