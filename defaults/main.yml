@@ -1,4 +1,4 @@
 ---
-go_tarball: "go1.3.2.linux-amd64.tar.gz"
-go_tarball_checksum: "8b20223611adf15bcce6d105dde28ebae972230f5984376c1c5451ae2a4e5778"
-go_version_target: "go version go1.3.2 linux/amd64"
+go_tarball: "go1.3.3.linux-amd64.tar.gz"
+go_tarball_checksum: "41943288fb9fc5bda9f132b0cf67fefb9cb672d7135b4a87de37372376b9612e"
+go_version_target: "go version go1.3.3 linux/amd64"
