@@ -8,6 +8,7 @@
   command: /usr/local/go/bin/go version
   ignore_errors: yes
   register: go_version
+  changed_when: false
 
 - name: Extract the Go tarball if Go is not yet installed or if it is not the desired version
   command: tar -C /usr/local -xf /usr/local/src/{{ go_tarball }}
