@@ -12,7 +12,7 @@
 
 - name: Extract the Go tarball if Go is not yet installed or if it is not the desired version
   command: tar -C /usr/local -xf /usr/local/src/{{ go_tarball }}
-  when: go_version|failed or go_version.stdout != go_version_target
+  when: go_version|failed or (not go_version|skipped and go_version.stdout != go_version_target)
 
 - name: Add the Go bin directory to the PATH environment variable for all users
   copy: src=go-bin.sh
