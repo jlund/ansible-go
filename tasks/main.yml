@@ -5,7 +5,7 @@
   register: go_version
   changed_when: false
 
-- name: Download and untar the Go tarball
+- name: Extract the Go tarball if Go is not yet installed or not the desired version
   unarchive: src={{ go_download_location }}
              dest=/usr/local
              copy=no
