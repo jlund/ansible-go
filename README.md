@@ -1,14 +1,14 @@
 Go
 ========
 
-Ansible role that installs Go (http://golang.org/). The latest stable release that has been compiled for x86 64-bit Linux systems is installed by default, and different platforms and versions are supported by modifying the role variables.
+Ansible role that installs Go (https://golang.org/). The latest stable release that has been compiled for x86 64-bit Linux systems is installed by default, and different platforms and versions are supported by modifying the role variables.
 
 Role Variables
 --------------
 
 All of these variables are optional and should only be changed if you need to install a different version of Go (e.g. if you are installing on FreeBSD, or if you need to use an earlier release).
 
-go_tarball: The tarball that you want to install. A list of options can be found on the [Go Downloads page](http://code.google.com/p/go/downloads/list). The default is the official x86 64-bit Linux tarball for the latest stable release.
+go_tarball: The tarball that you want to install. A list of options can be found on the [Go Downloads page](https://golang.org/dl/). The default is the official x86 64-bit Linux tarball for the latest stable release.
 
 go_tarball_checksum: The SHA256 checksum for the tarball that you want to install. This can be calculated using `sha256sum` if necessary. The default is the SHA256 checksum of the official x86 64-bit tarball for the latest stable release.
 
@@ -32,4 +32,4 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 Author Information
 ------------------
 
-You can find me on [Twitter](https://twitter.com/joshualund), and on [GitHub](https://github.com/jlund/). I also occasionally blog at [MissingM](http://missingm.co).
+You can find me on [Twitter](https://twitter.com/joshualund), and on [GitHub](https://github.com/jlund/). I also occasionally blog at [MissingM](https://missingm.co).
