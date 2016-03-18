@@ -1,4 +1,4 @@
 ---
 go_tarball: "go1.6.linux-amd64.tar.gz"
-go_tarball_checksum: "5470eac05d273c74ff8bac7bef5bad0b5abbd1c4052efbdbc8db45332e836b0b"
+go_tarball_checksum: "sha256:5470eac05d273c74ff8bac7bef5bad0b5abbd1c4052efbdbc8db45332e836b0b"
 go_version_target: "go version go1.6 linux/amd64"

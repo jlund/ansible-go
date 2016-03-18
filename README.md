@@ -10,7 +10,7 @@ All of these variables are optional and should only be changed if you need to in
 
 go_tarball: The tarball that you want to install. A list of options can be found on the [Go Downloads page](https://golang.org/dl/). The default is the official x86 64-bit Linux tarball for the latest stable release.
 
-go_tarball_checksum: The SHA256 checksum for the tarball that you want to install. This can be calculated using `sha256sum` if necessary. The default is the SHA256 checksum of the official x86 64-bit tarball for the latest stable release.
+go_tarball_checksum: This variable specifies the algorithm and checksum for the tarball that you want to install (e.g. `sha1:c7d78ba4df574b5f9a9bb5d17505f40c4d89b81c` or `sha256:a96cce8ce43a9bf9b2a4c7d470bc7ee0cb00410da815980681c8353218dcf146`). The default is the SHA256 checksum of the official x86 64-bit tarball for the latest stable release. Checksums can be found on the [Go Download Page](https://golang.org/dl/).
 
 go_version_target: The string that the `go version` command is expected to return (e.g. "go version go1.2.1 linux/amd64"). This variable is used to control whether or not the Go tarball should be extracted, thereby upgrading (or downgrading) a previously installed copy. If the installed version already matches the target, the extraction step is skipped.
 
