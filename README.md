@@ -16,7 +16,7 @@ All of these variables are optional and should only be changed if you need to in
 
 `go_download_location`: The full download URL. This variable simply appends the `go_tarball` variable onto the Go Download URL. This should not need to be modified.
 
-`set_go_path`: Whether or not set GOPATH for all users. Default is `true`.
+`set_go_path`: Whether or not to set the GOPATH for all users. The default is `true`.
 
 License
 -------

@@ -33,3 +33,4 @@
   copy:
     src: go-path.sh
     dest: /etc/profile.d
+  when: set_go_path
