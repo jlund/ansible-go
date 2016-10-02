@@ -1,28 +1,50 @@
 ---
+- name: Discover the latest version
+  shell:
+    curl https://api.github.com/repos/golang/go/git/refs/tags/ | egrep 'ref.*refs/tags/go([0-9.]+)",' | egrep -o "[0-9.]+" | sort | tail -n 1
+  register: latest_release
+  changed_when: False
+  when:
+    - not go_tarball is defined
+    - not go_tarball_checksum is defined
+    - not go_download_location is defined
+
+- name: Setting facts for autodiscovered version
+  set_fact:
+    go_version: "{{ latest_release.stdout_lines[0] }}"
+    go_tarball: "go{{ latest_release.stdout_lines[0] }}.linux-amd64.tar.gz"
+  when: not latest_release | skipped
+
+- name: Setting facts based on previous autodiscovered facts
+  set_fact:
+    go_tarball_checksum: "sha256:{{ lookup('url',go_download_buckets_url+go_tarball+'.sha256') }}"
+    go_download_location: "{{ go_download_buckets_url }}{{ go_tarball }}"
+  when: not latest_release | skipped
+
 - name: Download the Go tarball
   get_url:
     url: "{{ go_download_location }}"
-    dest: /usr/local/src/{{ go_tarball }}
+    dest: "/usr/local/src/"
     checksum: "{{ go_tarball_checksum }}"
 
 - name: Register the current Go version (if any)
   command: /usr/local/go/bin/go version
   ignore_errors: yes
-  register: go_version
+  register: current_go_version
   changed_when: false
 
 - name: Remove old installation of Go
   file:
     path: /usr/local/go
     state: absent
-  when: go_version|failed or go_version.stdout != go_version_target
+  when: current_go_version|failed or current_go_version.stdout != go_version_target
 
 - name: Extract the Go tarball if Go is not yet installed or not the desired version
   unarchive:
     src: /usr/local/src/{{ go_tarball }}
     dest: /usr/local
     copy: no
-  when: go_version|failed or go_version.stdout != go_version_target
+  when: current_go_version|failed or current_go_version.stdout != go_version_target
 
 - name: Add the Go bin directory to the PATH environment variable for all users
   copy:
