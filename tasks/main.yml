@@ -21,6 +21,9 @@
     go_download_location: "{{ go_download_buckets_url }}{{ go_tarball }}"
   when: not latest_release | skipped
 
+- name: Create /usr/local/src/
+  file: state=directory path=/usr/local/src/ mode=0755
+
 - name: Download the Go tarball
   get_url:
     url: "{{ go_download_location }}"
