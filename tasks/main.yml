@@ -5,9 +5,8 @@
   register: latest_release
   changed_when: False
   when:
-    - go_tarball is not defined
+    - go_version is not defined
     - go_tarball_checksum is not defined
-    - go_download_location is not defined
 
 - name: Setting facts for autodiscovered version
   set_fact:
