@@ -8,7 +8,7 @@
 
 - name: Download signature
   get_url:
-    url: "{{ go_mirror }}{{ go_tarball_name }}.asc"
+    url: "{{ go_tarball_url }}.asc"
     dest: "{{ go_download_dir }}"
 
 - name: Verify the signature
