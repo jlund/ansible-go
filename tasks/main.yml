@@ -14,8 +14,12 @@
 
 - name: Setting facts based on previous autodiscovered facts
   set_fact:
-    go_tarball_checksum: "sha256:{{ lookup('url',go_mirror+go_tarball_name+'.sha256') }}"
     go_tarball_url: "{{ go_mirror }}{{ go_tarball_name }}"
+
+- name: Fetching sha256 checksum
+  set_fact:
+    go_tarball_checksum: "sha256:{{ lookup('url',go_tarball_url+'.sha256') }}"
+  when: go_tarball_checksum is not defined
 
 - name: Create download dir
   file: state=directory path="{{ go_download_dir }}" mode=0755

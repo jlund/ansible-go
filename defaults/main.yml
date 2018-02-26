@@ -8,8 +8,11 @@ go_tarball_name: "go{{ go_version }}.linux-amd64.tar.gz"
 # mirror for Go release tarballs
 go_mirror: "https://storage.googleapis.com/golang/"
 
-#go_tarball_checksum: "sha256:43ad621c9b014cde8db17393dc108378d37bc853aa351a6c74bf6432c1bbd182"
 go_version_target: "go version go{{ go_version }} linux/amd64"
+
+# (TODO defaults->documentation)
+# using tarball_name+".sha256"
+#go_tarball_checksum: "sha256:b5a64335f1490277b585832d1f6c7f8c6c11206cba5cd3f771dcb87b98ad1a33"
 
 # the signature will be fetched from the mirror
 # using tarball_name+".asc"
