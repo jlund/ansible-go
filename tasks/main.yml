@@ -1,18 +1,17 @@
 ---
-- name: Discover the latest version
-  shell:
-    curl https://api.github.com/repos/golang/go/git/refs/tags/ | egrep 'ref.*refs/tags/go([0-9.]+)",' | egrep -o "[0-9.]+" | sort | tail -n 1
-  register: latest_release
-  changed_when: False
+- block:
+  - name: Discover the latest version
+    shell:
+      curl https://api.github.com/repos/golang/go/git/refs/tags/ | egrep 'ref.*refs/tags/go([0-9.]+)",' | egrep -o "[0-9.]+" | sort | tail -n 1
+    register: latest_release
+    changed_when: False
+
+  - name: Setting version from latest release
+    set_fact:
+      go_version: "{{ latest_release.stdout_lines[0] }}"
+      go_tarball: "go{{ latest_release.stdout_lines[0] }}.linux-amd64.tar.gz"
   when:
     - go_version is not defined
-    - go_tarball_checksum is not defined
-
-- name: Setting facts for autodiscovered version
-  set_fact:
-    go_version: "{{ latest_release.stdout_lines[0] }}"
-    go_tarball: "go{{ latest_release.stdout_lines[0] }}.linux-amd64.tar.gz"
-  when: not latest_release | skipped
 
 - name: Setting facts based on previous autodiscovered facts
   set_fact:
