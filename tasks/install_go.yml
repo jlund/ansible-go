@@ -1,0 +1,48 @@
+- name: Setting facts based on previous autodiscovered facts
+  set_fact:
+    go_tarball_url: "{{ go_mirror }}{{ go_tarball_name }}"
+
+- name: Fetching sha256 checksum
+  set_fact:
+    go_tarball_checksum: "sha256:{{ lookup('url',go_tarball_url+'.sha256') }}"
+  when: go_tarball_checksum is not defined
+
+- name: Create download dir
+  file: state=directory path="{{ go_download_dir }}" mode=0755
+
+- name: Download the Go tarball
+  get_url:
+    url: "{{ go_tarball_url }}"
+    dest: "{{ go_download_dir }}"
+    checksum: "{{ go_tarball_checksum }}"
+
+- block:
+  - name: Copy Go certificate
+    copy:
+      src: linux_signing_key.pub
+      dest: /tmp/golang.pub
+
+  - name: Install Go certificate
+    command: gpg --import /tmp/golang.pub
+
+  - name: Download signature
+    get_url:
+      url: "{{ go_tarball_url }}.asc"
+      dest: "{{ go_download_dir }}"
+
+  - name: Verify the signature
+    shell: gpg --verify "{{ go_tarball_name }}.asc" "{{ go_tarball_name }}"
+    args:
+      chdir: "{{ go_download_dir }}"
+  when: go_check_signature
+
+- name: Remove old installation of Go
+  file:
+    path: /usr/local/go
+    state: absent
+
+- name: Extract the Go tarball
+  unarchive:
+    src: "{{ go_download_dir }}/{{ go_tarball_name }}"
+    dest: /usr/local
+    copy: no
