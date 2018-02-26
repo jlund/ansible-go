@@ -9,14 +9,13 @@
   - name: Setting version from latest release
     set_fact:
       go_version: "{{ latest_release.stdout_lines[0] }}"
-      go_tarball: "go{{ latest_release.stdout_lines[0] }}.linux-amd64.tar.gz"
   when:
     - go_version is not defined
 
 - name: Setting facts based on previous autodiscovered facts
   set_fact:
-    go_tarball_checksum: "sha256:{{ lookup('url',go_mirror+go_tarball+'.sha256') }}"
-    go_download_location: "{{ go_mirror }}{{ go_tarball }}"
+    go_tarball_checksum: "sha256:{{ lookup('url',go_mirror+go_tarball_name+'.sha256') }}"
+    go_download_location: "{{ go_mirror }}{{ go_tarball_name }}"
   when: not latest_release | skipped
 
 - name: Create download dir
@@ -24,7 +23,7 @@
 
 - name: Download the Go tarball
   get_url:
-    url: "{{ go_mirror }}{{ go_tarball }}"
+    url: "{{ go_mirror }}{{ go_tarball_name }}"
     dest: "{{ go_download_dir }}"
     checksum: "{{ go_tarball_checksum }}"
 
@@ -39,11 +38,11 @@
 
   - name: Download signature
     get_url:
-      url: "{{ go_mirror }}{{ go_tarball }}.asc"
+      url: "{{ go_mirror }}{{ go_tarball_name }}.asc"
       dest: "{{ go_download_dir }}"
 
   - name: Verify the signature
-    shell: gpg --verify "{{ go_tarball }}.asc" "{{ go_tarball }}"
+    shell: gpg --verify "{{ go_tarball_name }}.asc" "{{ go_tarball_name }}"
     args:
       chdir: "{{ go_download_dir }}"
   when: go_check_signature
@@ -62,7 +61,7 @@
 
 - name: Extract the Go tarball if Go is not yet installed or not the desired version
   unarchive:
-    src: "{{ go_download_dir }}/{{ go_tarball }}"
+    src: "{{ go_download_dir }}/{{ go_tarball_name }}"
     dest: /usr/local
     copy: no
   when: current_go_version|failed or current_go_version.stdout != go_version_target
