@@ -17,8 +17,8 @@
 
 - name: Setting facts based on previous autodiscovered facts
   set_fact:
-    go_tarball_checksum: "sha256:{{ lookup('url',go_download_buckets_url+go_tarball+'.sha256') }}"
-    go_download_location: "{{ go_download_buckets_url }}{{ go_tarball }}"
+    go_tarball_checksum: "sha256:{{ lookup('url',go_mirror+go_tarball+'.sha256') }}"
+    go_download_location: "{{ go_mirror }}{{ go_tarball }}"
   when: not latest_release | skipped
 
 - name: Create download dir
@@ -26,7 +26,7 @@
 
 - name: Download the Go tarball
   get_url:
-    url: "{{ go_download_location }}"
+    url: "{{ go_mirror }}{{ go_tarball }}"
     dest: "{{ go_download_dir }}"
     checksum: "{{ go_tarball_checksum }}"
 
@@ -41,7 +41,7 @@
 
   - name: Download signature
     get_url:
-      url: "{{ go_download_buckets_url }}{{ go_tarball }}.asc"
+      url: "{{ go_mirror }}{{ go_tarball }}.asc"
       dest: "{{ go_download_dir }}"
 
   - name: Verify the signature

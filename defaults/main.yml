@@ -1,6 +1,6 @@
 ---
-# Set download location to an overridable var if you want to use an internal mirror
-#go_download_location: "https://storage.googleapis.com/golang/{{ go_tarball }}"
+# mirror for Go release tarballs
+go_mirror: "https://storage.googleapis.com/golang/"
 
 # go_version, go_tarball, and its checksum can be set by a deployer to
 # force a specific version.
