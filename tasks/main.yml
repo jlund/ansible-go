@@ -27,24 +27,7 @@
     dest: "{{ go_download_dir }}"
     checksum: "{{ go_tarball_checksum }}"
 
-- block:
-  - name: Copy Go certificate
-    copy:
-      src: linux_signing_key.pub
-      dest: /tmp/golang.pub
-
-  - name: Install Go certificate
-    command: gpg --import /tmp/golang.pub
-
-  - name: Download signature
-    get_url:
-      url: "{{ go_mirror }}{{ go_tarball_name }}.asc"
-      dest: "{{ go_download_dir }}"
-
-  - name: Verify the signature
-    shell: gpg --verify "{{ go_tarball_name }}.asc" "{{ go_tarball_name }}"
-    args:
-      chdir: "{{ go_download_dir }}"
+- include_tasks: check_signature.yml
   when: go_check_signature
 
 - name: Register the current Go version (if any)
