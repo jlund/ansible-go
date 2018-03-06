@@ -45,4 +45,4 @@
   unarchive:
     src: "{{ go_download_dir }}/{{ go_tarball_name }}"
     dest: /usr/local
-    copy: no
+    remote_src: yes
