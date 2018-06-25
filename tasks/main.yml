@@ -34,3 +34,7 @@
     src: go-path.sh
     dest: /etc/profile.d
   when: set_go_path
+  
+- name: Create GOBIN directory
+  file: path="{{ ansible_env.HOME }}/go/bin" state=directory
+  when: set_go_path  
