@@ -8,7 +8,10 @@
   when: go_tarball_checksum is not defined
 
 - name: Create download dir
-  file: state=directory path="{{ go_download_dir }}" mode=0755
+  file:
+    state: directory
+    path: "{{ go_download_dir }}"
+    mode: 0755
 
 - name: Download the Go tarball
   get_url:
