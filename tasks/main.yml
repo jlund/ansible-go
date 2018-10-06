@@ -2,7 +2,7 @@
 - block:
   - name: Discover the latest version
     shell:
-      curl https://api.github.com/repos/golang/go/git/refs/tags/ | egrep 'ref.*refs/tags/go([0-9.]+)",' | egrep -o "[0-9.]+" | sort | tail -n 1
+      curl https://api.github.com/repos/golang/go/git/refs/tags/ | egrep 'ref.*refs/tags/go([0-9.]+)",' | egrep -o "[0-9.]+" | sort -V | tail -n 1
     register: latest_release
     changed_when: False
 
