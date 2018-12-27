@@ -20,7 +20,7 @@
 
 - name: Install Go
   include_tasks: install_go.yml
-  when: current_go_version|failed or current_go_version.stdout != go_version_target
+  when: current_go_version is failed or current_go_version.stdout != go_version_target
 
 - name: Add the Go bin directory to the PATH environment variable for all users
   copy:
