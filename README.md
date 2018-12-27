@@ -6,17 +6,17 @@ Ansible role that installs [Go](https://golang.org/). The latest stable release 
 Role Variables
 --------------
 
-All of these variables are optional and should only be changed if you need to install a different version of Go (e.g. if you are installing on FreeBSD, or if you need to use an earlier release).
+By default, ansible-go detects the latest version of Go using github tags and version sort and checks if that version is already installed.
+If not, it downloads the tarball from the official mirror (if there's not already a file with matching SHA256 checksum), verifies the GPG signature, and extracts it in `/usr/local/src/`.
 
-`go_tarball`: The tarball that you want to install. A list of options can be found on the [Go Downloads page](https://golang.org/dl/). The default is the official x86 64-bit Linux tarball for the latest stable release.
+You can install a specific version of Go (e.g. if you are installing on FreeBSD, or if you need to use an earlier release) by setting the `go_version` variable. A list of versions can be found on the [Go Downloads page](https://golang.org/dl/).
+E.g. `go_version: "1.10"`.
 
-`go_tarball_checksum`: This variable specifies the algorithm and checksum for the tarball that you want to install (e.g. `sha1:c7d78ba4df574b5f9a9bb5d17505f40c4d89b81c` or `sha256:a96cce8ce43a9bf9b2a4c7d470bc7ee0cb00410da815980681c8353218dcf146`). The default is the SHA256 checksum of the official x86 64-bit tarball for the latest stable release. Checksums can be found on the [Go Download Page](https://golang.org/dl/).
+The `go_tarball_checksum` variable controls how the integrity of the downloaded tarball is validated.
+See the ansible [documentation](https://docs.ansible.com/ansible/latest/modules/get_url_module.html) for details and syntax (`checksum` field).
+Tarball checksums can be found on the [Go Download Page](https://golang.org/dl/).
 
-`go_version_target`: The string that the `go version` command is expected to return (e.g. "go version go1.2.1 linux/amd64"). This variable is used to control whether or not the Go tarball should be extracted, thereby upgrading (or downgrading) a previously installed copy. If the installed version already matches the target, the extraction step is skipped.
-
-`go_download_location`: The full download URL. This variable simply appends the `go_tarball` variable onto the Go Download URL. This should not need to be modified.
-
-`set_go_path`: Whether or not to set the GOPATH for all users. The default is `true`.
+For more options, check the [default](defaults/main.yml) variables.
 
 License
 -------
